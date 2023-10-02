@@ -1,7 +1,65 @@
-1-)Funções de Texto
-a)CREATE TABLE nomes (
+-- 1. Funções de Texto:
+CREATE TABLE nomes (
     nome VARCHAR(50)
 );
 
 INSERT INTO nomes (nome)
 VALUES ('Roberta'), ('Roberto'), ('Maria Clara'), ('João');
+
+SELECT UPPER(nome) AS nome_maiusculo FROM nomes;
+
+SELECT nome, LENGTH(nome) AS tamanho_nome FROM nomes;
+
+SELECT 
+    CASE 
+        WHEN nome LIKE 'João%' THEN CONCAT('Sr. ', nome)
+        ELSE CONCAT('Sra. ', nome)
+    END AS nome_com_tratamento
+FROM nomes;
+
+-- 2. Funções Numéricas:
+CREATE TABLE produtos (
+    produto VARCHAR(50),
+    preco DECIMAL(10, 2),
+    quantidade INT
+);
+
+INSERT INTO produtos (produto, preco, quantidade)
+VALUES ('ProdutoA', 15.99, 10),
+       ('ProdutoB', 29.75, -5),
+       ('ProdutoC', 9.49, 8);
+
+SELECT produto, ROUND(preco, 2) AS preco_arredondado FROM produtos;
+
+SELECT produto, ABS(quantidade) AS quantidade_absoluta FROM produtos;
+
+SELECT AVG(preco) AS media_precos FROM produtos;
+
+-- 3. Funções de Data:
+CREATE TABLE eventos (
+    data_evento DATE
+);
+
+INSERT INTO eventos (data_evento)
+VALUES ('2023-10-01'), ('2023-10-05'), ('2023-10-12');
+
+INSERT INTO eventos (data_evento)
+VALUES (NOW());
+
+SELECT DATEDIFF('2023-10-12', '2023-10-01') AS dias_entre_datas;
+
+SELECT data_evento, DAYNAME(data_evento) AS nome_dia_semana FROM eventos;
+
+-- 4. Funções de Controle de Fluxo:
+SELECT 
+    produto,
+    IF(quantidade > 0, 'Em estoque', 'Fora de estoque') AS status_estoque
+FROM produtos;
+
+SELECT 
+    produto,
+    CASE 
+        WHEN preco < 10 THEN 'Barato'
+        WHEN preco
+
+
